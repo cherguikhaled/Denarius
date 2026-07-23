@@ -22,18 +22,15 @@
 
     <div class="brand">
 
-
         <div class="logo">
 
             <img src="{{ url_for('static', filename='logo.png') }}" alt="Denarius Logo">
 
         </div>
 
-
         <h1>DENARIUS</h1>
 
         <h2>Global Currency Exchange</h2>
-
 
     </div>
 
@@ -42,99 +39,71 @@
     <form method="POST">
 
 
-
         <div class="form-group">
-
 
             <label>From:</label>
 
-
             <select name="from_currency">
-
 
                 {% for code, currency in currencies.items() %}
 
-
                 <option 
-                value="{{ code }}"
-                data-flag="{{ currency.flag }}"
-                {% if code == from_currency %}selected{% endif %}>
+value="{{ code }}"
+data-flag="{{ currency.flag }}"
+{% if code == from_currency %}selected{% endif %}>
 
+    {{ currency.name }}
 
-                    {{ currency.name }}
-
-
-                </option>
-
+</option>
 
                 {% endfor %}
 
-
             </select>
 
-
         </div>
-
 
 
 
         <div class="swap-container">
 
-
             <button type="submit" name="action" value="swap" class="swap-btn">
-
 
                 ⇅
 
-
             </button>
-
 
         </div>
 
 
 
-
         <div class="form-group">
-
 
             <label>To:</label>
 
-
             <select name="to_currency">
-
 
                 {% for code, currency in currencies.items() %}
 
-
                 <option 
-                value="{{ code }}"
-                data-flag="{{ currency.flag }}"
-                {% if code == to_currency %}selected{% endif %}>
+value="{{ code }}"
+data-flag="{{ currency.flag }}"
+{% if code == to_currency %}selected{% endif %}>
 
+    {{ currency.name }}
 
-                    {{ currency.name }}
-
-
-                </option>
-
+</option>
 
                 {% endfor %}
 
-
             </select>
-
 
         </div>
 
 
 
-
         <div class="form-group">
 
-
             <label>Amount:</label>
-
 
             <input
                 type="number"
@@ -142,9 +111,7 @@
                 value="{{ amount if amount else 100 }}"
                 step="0.01">
 
-
         </div>
-
 
 
 
@@ -155,40 +122,29 @@
         </button>
 
 
-
     </form>
-
 
 
 
 
     {% if error %}
 
-
     <div class="error">
-
 
         {{ error }}
 
-
     </div>
-
 
     {% endif %}
 
 
 
 
-
-
     {% if rate %}
-
 
     <div class="result-box">
 
-
         <h3>Exchange Rate</h3>
-
 
         <p>
 
@@ -196,12 +152,9 @@
 
         </p>
 
-
     </div>
 
-
     {% endif %}
-
 
 
 
@@ -209,48 +162,83 @@
 
     {% if result %}
 
-
     <div class="result-box">
 
-
-        <h3>Result</h3>
-
-
-        <p class="conversion">
+        <h3>Conversion Result</h3>
 
 
-            <span class="amount">
-
-                {{ amount }} {{ from_currency }}
-
-            </span>
+        <div class="currency-result">
 
 
+            <div class="currency-card">
 
-            <span class="arrow">
+
+                <img 
+                src="/static/{{ currencies[from_currency].flag }}"
+                alt="{{ from_currency }}">
+
+
+                <h2>
+
+                    {{ amount }}
+
+                </h2>
+
+
+                <p>
+
+                    {{ currencies[from_currency].name }}
+
+                </p>
+
+
+            </div>
+
+
+
+
+            <div class="arrow">
 
                 ↓
 
-            </span>
+            </div>
 
 
 
-            <span class="amount">
 
-                {{ "%.2f"|format(result) }} {{ to_currency }}
-
-            </span>
+            <div class="currency-card">
 
 
-        </p>
+                <img 
+                src="/static/{{ currencies[to_currency].flag }}"
+                alt="{{ to_currency }}">
+
+
+                <h2>
+
+                    {{ "%.2f"|format(result) }}
+
+                </h2>
+
+
+                <p>
+
+                    {{ currencies[to_currency].name }}
+
+                </p>
+
+
+            </div>
+
+
+
+        </div>
 
 
     </div>
 
 
     {% endif %}
-
-
 
 
 
@@ -321,8 +309,8 @@ function formatCurrency(currency) {
 
 
 
-$(document).ready(function() {
 
+$(document).ready(function() {
 
 
     $('select').select2({
@@ -346,7 +334,6 @@ $(document).ready(function() {
     });
 
 
-
 });
 
 
@@ -357,6 +344,5 @@ $(document).ready(function() {
 
 
 </body>
-
 
 </html>

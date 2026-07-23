@@ -363,3 +363,12 @@ button:hover {
     transform: rotate(180deg) scale(1.1);
 
 }
+.currency-card img {
+
+    width: 70px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+
+}
