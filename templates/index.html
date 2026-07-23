@@ -43,28 +43,36 @@
 
             <label>From:</label>
 
+
             <select name="from_currency">
+
 
                 {% for code, currency in currencies.items() %}
 
-                <option 
-value="{{ code }}"
-data-flag="{{ currency.flag }}"
-{% if code == from_currency %}selected{% endif %}>
+                <option
+                value="{{ code }}"
+                data-flag="{{ currency.flag }}"
+                {% if code == from_currency %}selected{% endif %}>
 
-    {{ currency.name }}
+                    {{ code }}
 
-</option>
+                </option>
+
 
                 {% endfor %}
 
+
             </select>
+
 
         </div>
 
 
 
+
+
         <div class="swap-container">
+
 
             <button type="submit" name="action" value="swap" class="swap-btn">
 
@@ -72,46 +80,65 @@ data-flag="{{ currency.flag }}"
 
             </button>
 
+
         </div>
 
 
 
+
+
         <div class="form-group">
+
 
             <label>To:</label>
 
+
             <select name="to_currency">
+
 
                 {% for code, currency in currencies.items() %}
 
-                <option 
-value="{{ code }}"
-data-flag="{{ currency.flag }}"
-{% if code == to_currency %}selected{% endif %}>
 
-    {{ currency.name }}
+                <option
+                value="{{ code }}"
+                data-flag="{{ currency.flag }}"
+                {% if code == to_currency %}selected{% endif %}>
 
-</option>
+
+                    {{ code }}
+
+
+                </option>
+
 
                 {% endfor %}
 
+
             </select>
 
+
         </div>
+
+
 
 
 
         <div class="form-group">
 
+
             <label>Amount:</label>
 
+
             <input
-                type="number"
-                name="amount"
-                value="{{ amount if amount else 100 }}"
-                step="0.01">
+            type="number"
+            name="amount"
+            value="{{ amount if amount else 100 }}"
+            step="0.01">
+
 
         </div>
+
+
 
 
 
@@ -122,7 +149,9 @@ data-flag="{{ currency.flag }}"
         </button>
 
 
+
     </form>
+
 
 
 
@@ -140,11 +169,14 @@ data-flag="{{ currency.flag }}"
 
 
 
+
     {% if rate %}
 
     <div class="result-box">
 
+
         <h3>Exchange Rate</h3>
+
 
         <p>
 
@@ -152,7 +184,9 @@ data-flag="{{ currency.flag }}"
 
         </p>
 
+
     </div>
+
 
     {% endif %}
 
@@ -162,12 +196,16 @@ data-flag="{{ currency.flag }}"
 
     {% if result %}
 
+
     <div class="result-box">
+
 
         <h3>Conversion Result</h3>
 
 
+
         <div class="currency-result">
+
 
 
             <div class="currency-card">
@@ -178,6 +216,7 @@ data-flag="{{ currency.flag }}"
                 alt="{{ from_currency }}">
 
 
+
                 <h2>
 
                     {{ amount }}
@@ -185,23 +224,27 @@ data-flag="{{ currency.flag }}"
                 </h2>
 
 
+
                 <p>
 
-                    {{ currencies[from_currency].name }}
+                    {{ from_currency }}
 
                 </p>
 
 
+
             </div>
+
 
 
 
 
             <div class="arrow">
 
-                ↓
+    →
 
-            </div>
+</div>
+
 
 
 
@@ -214,6 +257,7 @@ data-flag="{{ currency.flag }}"
                 alt="{{ to_currency }}">
 
 
+
                 <h2>
 
                     {{ "%.2f"|format(result) }}
@@ -221,18 +265,22 @@ data-flag="{{ currency.flag }}"
                 </h2>
 
 
+
                 <p>
 
-                    {{ currencies[to_currency].name }}
+                    {{ to_currency }}
 
                 </p>
+
 
 
             </div>
 
 
 
+
         </div>
+
 
 
     </div>
@@ -248,10 +296,13 @@ data-flag="{{ currency.flag }}"
 
 
 
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
 
 
 
@@ -274,18 +325,10 @@ function formatCurrency(currency) {
 
 
 
-    if (!flag) {
-
-        return currency.text;
-
-    }
-
-
-
-
     return `
 
         <span>
+
 
             <img 
             src="/static/${flag}"
@@ -293,13 +336,17 @@ function formatCurrency(currency) {
             width:25px;
             height:18px;
             object-fit:cover;
-            margin-right:10px;
+            margin-right:8px;
             vertical-align:middle;
+            border-radius:3px;
             ">
+
 
             ${currency.text}
 
+
         </span>
+
 
     `;
 
@@ -310,7 +357,8 @@ function formatCurrency(currency) {
 
 
 
-$(document).ready(function() {
+
+$(document).ready(function(){
 
 
     $('select').select2({
@@ -322,16 +370,15 @@ $(document).ready(function() {
         templateSelection: formatCurrency,
 
 
-        escapeMarkup: function(markup) {
-
+        escapeMarkup: function(markup){
 
             return markup;
-
 
         }
 
 
     });
+
 
 
 });
@@ -343,6 +390,8 @@ $(document).ready(function() {
 
 
 
+
 </body>
+
 
 </html>

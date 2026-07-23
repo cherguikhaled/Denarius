@@ -1,374 +1,411 @@
-body {
+/* ===========================
+   GENERAL
+=========================== */
 
-    background-color: #f2f2f2;
+body{
+    margin:0;
+    min-height:100vh;
 
-    font-family: Arial, sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-    display: flex;
+    font-family:'Poppins', Arial, sans-serif;
 
-    justify-content: center;
+    background:linear-gradient(
+        135deg,
+        #f7f3e8,
+        #ececec
+    );
+}
 
-    align-items: center;
 
-    min-height: 100vh;
+/* ===========================
+   CONTAINER
+=========================== */
 
-    margin: 0;
+.container{
+
+    width:400px;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.95);
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.15);
 
 }
 
 
+/* ===========================
+   BRAND
+=========================== */
 
-.container {
+.brand{
 
-    background-color: white;
+    text-align:center;
 
-    width: 380px;
+    margin-bottom:25px;
 
-    padding: 35px;
+}
 
-    border-radius: 18px;
+.logo img{
 
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    width:80px;
+    height:80px;
+
+    object-fit:contain;
+
+    margin-bottom:10px;
+
+}
+
+h1{
+
+    margin:0;
+
+    color:#b8860b;
+
+    font-size:38px;
+
+    letter-spacing:5px;
+
+    font-weight:700;
+
+}
+
+h2{
+
+    margin-top:10px;
+    margin-bottom:30px;
+
+    color:#666;
+
+    font-size:17px;
+
+    font-weight:400;
 
 }
 
 
+/* ===========================
+   FORM
+=========================== */
 
-h1 {
+.form-group{
 
-    text-align: center;
-
-    color: #b8860b;
-
-    letter-spacing: 5px;
-
-    font-size: 38px;
-
-    margin-bottom: 5px;
-
-    font-weight: bold;
+    margin-bottom:20px;
 
 }
 
+label{
 
+    display:block;
 
-h2 {
+    margin-bottom:8px;
 
-    text-align: center;
+    font-weight:600;
 
-    color: #555;
-
-    font-size: 17px;
-
-    margin-bottom: 30px;
-
-    font-weight: normal;
+    color:#333;
 
 }
-
-
-
-.form-group {
-
-    margin-bottom: 20px;
-
-}
-
-
-
-label {
-
-    display: block;
-
-    margin-bottom: 8px;
-
-    font-weight: bold;
-
-    color: #333;
-
-}
-
-
 
 select,
-input {
+input{
 
-    width: 100%;
+    width:100%;
 
-    padding: 12px;
+    padding:12px;
 
-    border: 1px solid #ccc;
+    font-size:15px;
 
-    border-radius: 8px;
+    border-radius:10px;
 
-    font-size: 15px;
+    border:1px solid #ccc;
 
-    box-sizing: border-box;
+    box-sizing:border-box;
+
+    transition:.25s;
 
 }
-
-
 
 select:focus,
-input:focus {
+input:focus{
 
-    outline: none;
+    outline:none;
 
-    border-color: #222;
+    border-color:#b8860b;
 
-}
-
-
-
-button {
-
-    width: 100%;
-
-    padding: 14px;
-
-    background-color: #b8860b;
-
-    color: white;
-
-    border: none;
-
-    border-radius: 10px;
-
-    font-size: 17px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: 0.3s;
+    box-shadow:0 0 0 3px rgba(184,134,11,.15);
 
 }
 
 
-button:hover {
+/* ===========================
+   BUTTON
+=========================== */
 
-    background-color: #8b6508;
+button{
 
-    transform: scale(1.03);
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    background:linear-gradient(
+        135deg,
+        #d4a017,
+        #b8860b
+    );
+
+    transition:.25s;
+
+}
+
+button:hover{
+
+    transform:scale(1.03);
+
+    box-shadow:
+        0 10px 25px rgba(184,134,11,.30);
+
+}
+
+button:active{
+
+    transform:scale(.97);
 
 }
 
 
+/* ===========================
+   SWAP BUTTON
+=========================== */
 
-.error {
+.swap-container{
 
-    margin-top: 20px;
+    display:flex;
 
-    padding: 12px;
+    justify-content:center;
 
-    background-color: #ffe5e5;
+    margin:10px 0;
 
-    color: #b00000;
+}
 
-    border-radius: 8px;
+.swap-btn{
 
-    text-align: center;
+    width:58px;
+
+    height:58px;
+
+    border-radius:50%;
+
+    font-size:24px;
+
+    padding:0;
+
+}
+
+.swap-btn:hover{
+
+    transform:
+        rotate(180deg)
+        scale(1.1);
 
 }
 
 
+/* ===========================
+   RESULT
+=========================== */
 
-.result-box {
+.result-box{
 
-    margin-top: 20px;
+    margin-top:22px;
 
-    padding: 15px;
+    padding:18px;
 
-    background-color: #f8f8f8;
+    border-radius:15px;
 
-    border-radius: 10px;
+    background:#fafafa;
 
-    text-align: center;
+    text-align:center;
+
+    border:1px solid #ececec;
+
+}
+
+.result-box h3{
+
+    margin-top:0;
+
+    color:#333;
 
 }
 
 
+/* ===========================
+   CONVERSION CARD
+=========================== */
 
-.result-box h3 {
+/* ===========================
+   CONVERSION RESULT
+=========================== */
 
-    margin-top: 0;
-
-    color: #333;
-
-}
-.brand {
-
-    text-align: center;
-
-}
-
-
-.logo img {
-
-    width: 80px;
-
-    height: 80px;
-
-    object-fit: contain;
-
-    margin-bottom: 10px;
-
-}
-.conversion-card {
-
-    margin-top: 25px;
-
-    padding: 25px;
-
-    background-color: #fafafa;
-
-    border-radius: 15px;
-
-    text-align: center;
-
-    border: 1px solid #eee;
-
+.currency-result{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    margin-top:25px;
 }
 
-
-
-.conversion-card h3 {
-
-    color: #b8860b;
-
-    margin-bottom: 20px;
-
-    font-size: 20px;
-
+.currency-card{
+    width:120px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
 }
 
-
-
-.amount {
-
-    font-size: 22px;
-
-    font-weight: bold;
-
-    color: #333;
-
+.currency-card img{
+    width:70px;
+    height:45px;
+    object-fit:cover;
+    border-radius:8px;
+    box-shadow:0 3px 8px rgba(0,0,0,.20);
+    margin-bottom:10px;
 }
 
-
-
-.arrow {
-
-    font-size: 35px;
-
-    color: #b8860b;
-
-    margin: 10px 0;
-
+.currency-card h2{
+    margin:0;
+    font-size:26px;
+    font-weight:700;
+    color:#222;
 }
 
+.currency-card p{
+    margin-top:5px;
+    color:#666;
+    font-size:14px;
+    font-weight:600;
+}
 
+.arrow{
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-.final-result {
+    width:50px;
+    height:50px;
 
-    font-size: 30px;
+    font-size:34px;
+    font-weight:bold;
 
-    font-weight: bold;
+    color:#b8860b;
 
-    color: #111;
+    background:none;
 
-    margin-bottom: 20px;
+    margin-top:-15px;
+}
+
+/* ===========================
+   EXTRA
+=========================== */
+
+.error{
+
+    margin-top:20px;
+
+    padding:12px;
+
+    text-align:center;
+
+    border-radius:10px;
+
+    color:#b00000;
+
+    background:#ffe5e5;
 
 }
 
+.amount{
 
+    font-size:22px;
 
-.rate-info {
+    font-weight:700;
 
-    font-size: 14px;
-
-    color: #666;
-
-    padding-top: 15px;
-
-    border-top: 1px solid #ddd;
-
-}
-.conversion {
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 12px;
-
-    font-size: 20px;
-
-    font-weight: bold;
+    color:#222;
 
 }
 
-.amount {
+.final-result{
 
-    color: #222;
+    font-size:30px;
 
-}
+    font-weight:700;
 
-.arrow {
-
-    font-size: 34px;
-
-    color: #b8860b;
-
-}
-.swap-container {
-
-    display: flex;
-
-    justify-content: center;
-
-    margin: 10px 0;
+    color:#111;
 
 }
 
-.swap-btn {
+.rate-info{
 
-    width: 55px;
+    margin-top:15px;
 
-    height: 55px;
+    padding-top:15px;
 
-    border-radius: 50%;
+    border-top:1px solid #ddd;
 
-    border: none;
+    color:#666;
 
-    background-color: #b8860b;
-
-    color: white;
-
-    font-size: 24px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: 0.3s;
+    font-size:14px;
 
 }
-
-.swap-btn:hover {
-
-    background-color: #8b6508;
-
-    transform: rotate(180deg) scale(1.1);
-
+.currency-result{
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    flex-direction:row !important;
+    gap:25px !important;
 }
-.currency-card img {
 
-    width: 70px;
-    height: 45px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+.arrow{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
 
+    width:45px !important;
+    height:45px !important;
+
+    background:#b8860b !important;
+    color:white !important;
+
+    border-radius:50% !important;
+
+    font-size:22px !important;
+
+    flex-shrink:0 !important;
+}
+
+.currency-card{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
