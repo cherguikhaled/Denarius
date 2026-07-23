@@ -9,13 +9,19 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
+
     <div class="brand">
+
 
         <div class="logo">
 
@@ -23,69 +29,112 @@
 
         </div>
 
+
         <h1>DENARIUS</h1>
 
         <h2>Global Currency Exchange</h2>
 
+
     </div>
+
+
 
     <form method="POST">
 
+
+
         <div class="form-group">
+
 
             <label>From:</label>
 
+
             <select name="from_currency">
 
-                {% for code, name in currencies.items() %}
 
-<option value="{{ code }}"
-{% if code == from_currency %}selected{% endif %}>
+                {% for code, currency in currencies.items() %}
 
-    {{ name }}
 
-</option>
+                <option 
+                value="{{ code }}"
+                data-flag="{{ currency.flag }}"
+                {% if code == from_currency %}selected{% endif %}>
 
-{% endfor %}
+
+                    {{ currency.name }}
+
+
+                </option>
+
+
+                {% endfor %}
+
 
             </select>
 
+
         </div>
+
+
+
 
         <div class="swap-container">
 
+
             <button type="submit" name="action" value="swap" class="swap-btn">
+
 
                 ⇅
 
+
             </button>
+
 
         </div>
 
+
+
+
         <div class="form-group">
+
 
             <label>To:</label>
 
+
             <select name="to_currency">
 
-                {% for code, name in currencies.items() %}
 
-<option value="{{ code }}"
-{% if code == to_currency %}selected{% endif %}>
+                {% for code, currency in currencies.items() %}
 
-    {{ name }}
 
-</option>
+                <option 
+                value="{{ code }}"
+                data-flag="{{ currency.flag }}"
+                {% if code == to_currency %}selected{% endif %}>
 
-{% endfor %}
+
+                    {{ currency.name }}
+
+
+                </option>
+
+
+                {% endfor %}
+
 
             </select>
 
+
         </div>
+
+
+
 
         <div class="form-group">
 
+
             <label>Amount:</label>
+
 
             <input
                 type="number"
@@ -93,7 +142,11 @@
                 value="{{ amount if amount else 100 }}"
                 step="0.01">
 
+
         </div>
+
+
+
 
         <button type="submit">
 
@@ -101,23 +154,41 @@
 
         </button>
 
+
+
     </form>
+
+
+
+
 
     {% if error %}
 
+
     <div class="error">
+
 
         {{ error }}
 
+
     </div>
+
 
     {% endif %}
 
+
+
+
+
+
     {% if rate %}
+
 
     <div class="result-box">
 
+
         <h3>Exchange Rate</h3>
+
 
         <p>
 
@@ -125,17 +196,28 @@
 
         </p>
 
+
     </div>
+
 
     {% endif %}
 
+
+
+
+
+
     {% if result %}
+
 
     <div class="result-box">
 
+
         <h3>Result</h3>
 
+
         <p class="conversion">
+
 
             <span class="amount">
 
@@ -143,11 +225,15 @@
 
             </span>
 
+
+
             <span class="arrow">
 
                 ↓
 
             </span>
+
+
 
             <span class="amount">
 
@@ -155,14 +241,122 @@
 
             </span>
 
+
         </p>
+
 
     </div>
 
+
     {% endif %}
+
+
+
+
 
 </div>
 
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+
+
+<script>
+
+
+function formatCurrency(currency) {
+
+
+    if (!currency.id) {
+
+        return currency.text;
+
+    }
+
+
+
+    let flag = $(currency.element).data('flag');
+
+
+
+    if (!flag) {
+
+        return currency.text;
+
+    }
+
+
+
+
+    return `
+
+        <span>
+
+            <img 
+            src="/static/${flag}"
+            style="
+            width:25px;
+            height:18px;
+            object-fit:cover;
+            margin-right:10px;
+            vertical-align:middle;
+            ">
+
+            ${currency.text}
+
+        </span>
+
+    `;
+
+
+}
+
+
+
+
+$(document).ready(function() {
+
+
+
+    $('select').select2({
+
+
+        templateResult: formatCurrency,
+
+
+        templateSelection: formatCurrency,
+
+
+        escapeMarkup: function(markup) {
+
+
+            return markup;
+
+
+        }
+
+
+    });
+
+
+
+});
+
+
+
+</script>
+
+
+
+
 </body>
+
 
 </html>

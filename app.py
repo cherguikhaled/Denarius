@@ -6,21 +6,45 @@ app = Flask(__name__)
 
 currencies = {
 
-    "USD": "🇺🇸 USD",
+    "USD": {
+        "name": "USD",
+        "flag": "flags/usa.png"
+    },
 
-    "EUR": "🇪🇺 EUR",
+    "EUR": {
+        "name": "EUR",
+        "flag": "flags/europe.png"
+    },
 
-    "DZD": "🇩🇿 DZD",
+    "DZD": {
+        "name": "DZD",
+        "flag": "flags/algeria.png"
+    },
 
-    "GBP": "🇬🇧 GBP",
+    "GBP": {
+        "name": "GBP",
+        "flag": "flags/uk.png"
+    },
 
-    "JPY": "🇯🇵 JPY",
+    "JPY": {
+        "name": "JPY",
+        "flag": "flags/japan.png"
+    },
 
-    "CAD": "🇨🇦 CAD",
+    "CAD": {
+        "name": "CAD",
+        "flag": "flags/canada.png"
+    },
 
-    "AUD": "🇦🇺 AUD",
+    "AUD": {
+        "name": "AUD",
+        "flag": "flags/australia.png"
+    },
 
-    "CHF": "🇨🇭 CHF"
+    "CHF": {
+        "name": "CHF",
+        "flag": "flags/switzerland.png"
+    }
 
 }
 
