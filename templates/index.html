@@ -37,14 +37,16 @@
 
             <select name="from_currency">
 
-                {% for currency in currencies %}
+                {% for code, name in currencies.items() %}
 
-                <option value="{{ currency }}"
-                {% if currency == from_currency %}selected{% endif %}>
-                    {{ currency }}
-                </option>
+<option value="{{ code }}"
+{% if code == from_currency %}selected{% endif %}>
 
-                {% endfor %}
+    {{ name }}
+
+</option>
+
+{% endfor %}
 
             </select>
 
@@ -66,14 +68,16 @@
 
             <select name="to_currency">
 
-                {% for currency in currencies %}
+                {% for code, name in currencies.items() %}
 
-                <option value="{{ currency }}"
-                {% if currency == to_currency %}selected{% endif %}>
-                    {{ currency }}
-                </option>
+<option value="{{ code }}"
+{% if code == to_currency %}selected{% endif %}>
 
-                {% endfor %}
+    {{ name }}
+
+</option>
+
+{% endfor %}
 
             </select>
 

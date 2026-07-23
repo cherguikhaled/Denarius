@@ -4,16 +4,25 @@ import requests
 app = Flask(__name__)
 
 
-currencies = [
-    "USD",
-    "EUR",
-    "DZD",
-    "GBP",
-    "JPY",
-    "CAD",
-    "AUD",
-    "CHF"
-]
+currencies = {
+
+    "USD": "🇺🇸 USD",
+
+    "EUR": "🇪🇺 EUR",
+
+    "DZD": "🇩🇿 DZD",
+
+    "GBP": "🇬🇧 GBP",
+
+    "JPY": "🇯🇵 JPY",
+
+    "CAD": "🇨🇦 CAD",
+
+    "AUD": "🇦🇺 AUD",
+
+    "CHF": "🇨🇭 CHF"
+
+}
 
 
 @app.route("/", methods=["GET", "POST"])
