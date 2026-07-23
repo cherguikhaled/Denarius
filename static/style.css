@@ -1,0 +1,295 @@
+body {
+
+    background-color: #f2f2f2;
+
+    font-family: Arial, sans-serif;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 100vh;
+
+    margin: 0;
+
+}
+
+
+
+.container {
+
+    background-color: white;
+
+    width: 380px;
+
+    padding: 35px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+
+}
+
+
+
+h1 {
+
+    text-align: center;
+
+    color: #b8860b;
+
+    letter-spacing: 5px;
+
+    font-size: 38px;
+
+    margin-bottom: 5px;
+
+    font-weight: bold;
+
+}
+
+
+
+h2 {
+
+    text-align: center;
+
+    color: #555;
+
+    font-size: 17px;
+
+    margin-bottom: 30px;
+
+    font-weight: normal;
+
+}
+
+
+
+.form-group {
+
+    margin-bottom: 20px;
+
+}
+
+
+
+label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: bold;
+
+    color: #333;
+
+}
+
+
+
+select,
+input {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    box-sizing: border-box;
+
+}
+
+
+
+select:focus,
+input:focus {
+
+    outline: none;
+
+    border-color: #222;
+
+}
+
+
+
+button {
+
+    width: 100%;
+
+    padding: 14px;
+
+    background-color: #b8860b;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+button:hover {
+
+    background-color: #8b6508;
+
+    transform: scale(1.03);
+
+}
+
+
+
+.error {
+
+    margin-top: 20px;
+
+    padding: 12px;
+
+    background-color: #ffe5e5;
+
+    color: #b00000;
+
+    border-radius: 8px;
+
+    text-align: center;
+
+}
+
+
+
+.result-box {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    background-color: #f8f8f8;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+}
+
+
+
+.result-box h3 {
+
+    margin-top: 0;
+
+    color: #333;
+
+}
+.brand {
+
+    text-align: center;
+
+}
+
+
+.logo img {
+
+    width: 80px;
+
+    height: 80px;
+
+    object-fit: contain;
+
+    margin-bottom: 10px;
+
+}
+.conversion-card {
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    background-color: #fafafa;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    border: 1px solid #eee;
+
+}
+
+
+
+.conversion-card h3 {
+
+    color: #b8860b;
+
+    margin-bottom: 20px;
+
+    font-size: 20px;
+
+}
+
+
+
+.amount {
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    color: #333;
+
+}
+
+
+
+.arrow {
+
+    font-size: 35px;
+
+    color: #b8860b;
+
+    margin: 10px 0;
+
+}
+
+
+
+.final-result {
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    color: #111;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.rate-info {
+
+    font-size: 14px;
+
+    color: #666;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #ddd;
+
+}

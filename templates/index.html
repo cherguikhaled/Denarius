@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>DENARIUS</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="brand">
+
+    <div class="logo">
+
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Denarius Logo">
+
+</div>
+
+    <h1>DENARIUS</h1>
+
+    <h2>Global Currency Exchange</h2>
+
+</div>
+
+
+    <form method="POST">
+
+
+        <div class="form-group">
+
+            <label>From:</label>
+
+            <select name="from_currency">
+
+                {% for currency in currencies %}
+
+                    <option value="{{ currency }}"
+                    {% if currency == from_currency %}selected{% endif %}>
+                        {{ currency }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label>To:</label>
+
+            <select name="to_currency">
+
+                {% for currency in currencies %}
+
+                    <option value="{{ currency }}"
+                    {% if currency == to_currency %}selected{% endif %}>
+                        {{ currency }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label>Amount:</label>
+
+            <input
+            type="number"
+            name="amount"
+            value="{{ amount if amount else 100 }}"
+            step="0.01">
+
+        </div>
+
+
+
+        <button type="submit">
+            Convert
+        </button>
+
+
+
+    </form>
+
+
+
+    {% if error %}
+
+        <div class="error">
+
+            {{ error }}
+
+        </div>
+
+    {% endif %}
+
+
+
+    {% if result %}
+
+<div class="conversion-card">
+
+    <h3>Conversion Result</h3>
+
+    <div class="amount">
+
+        {{ "%.2f"|format(amount) }}
+        {{ from_currency }}
+
+    </div>
+
+
+    <div class="arrow">
+
+        ↓
+
+    </div>
+
+
+    <div class="final-result">
+
+        {{ "%.2f"|format(result) }}
+        {{ to_currency }}
+
+    </div>
+
+
+    <div class="rate-info">
+
+        Exchange Rate:
+
+        1 {{ from_currency }}
+
+        =
+
+        {{ rate }}
+
+        {{ to_currency }}
+
+    </div>
+
+
+</div>
+
+{% endif %}
+
+
+
+</div>
+
+
+</body>
+
+</html>
