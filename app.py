@@ -39,6 +39,17 @@ def home():
 
             from_currency, to_currency = to_currency, from_currency
 
+            return render_template(
+                "index.html",
+                result=None,
+                rate=None,
+                amount=None,
+                from_currency=from_currency,
+                to_currency=to_currency,
+                currencies=currencies,
+                error=None
+            )
+
 
         try:
 
