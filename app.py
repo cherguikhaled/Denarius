@@ -3,6 +3,7 @@ import requests
 
 app = Flask(__name__)
 
+
 currencies = [
     "USD",
     "EUR",
@@ -25,30 +26,50 @@ def home():
     to_currency = None
     error = None
 
+
     if request.method == "POST":
 
         from_currency = request.form["from_currency"]
         to_currency = request.form["to_currency"]
 
+        action = request.form.get("action")
+
+
+        if action == "swap":
+
+            from_currency, to_currency = to_currency, from_currency
+
+
         try:
+
             amount = float(request.form["amount"])
 
+
         except ValueError:
+
             error = "Please enter a valid amount."
             amount = None
 
 
+
         if amount is not None:
 
+
             if amount <= 0:
+
                 error = "Amount must be greater than zero."
 
+
             elif from_currency == to_currency:
+
                 error = "Please choose two different currencies."
+
 
             else:
 
+
                 url = f"https://api.exchangerate-api.com/v4/latest/{from_currency}"
+
 
                 try:
 
@@ -56,15 +77,18 @@ def home():
 
                     data = response.json()
 
+
                     if "rates" in data:
 
                         rate = data["rates"][to_currency]
 
                         result = amount * rate
 
+
                     else:
 
                         error = "Unable to get exchange rate."
+
 
 
                 except requests.exceptions.RequestException:
@@ -72,22 +96,35 @@ def home():
                     error = "Connection error. Please try again later."
 
 
+
                 except KeyError:
 
                     error = "Currency not supported."
 
 
+
     return render_template(
+
         "index.html",
+
         result=result,
+
         rate=rate,
+
         amount=amount,
+
         from_currency=from_currency,
+
         to_currency=to_currency,
+
         currencies=currencies,
+
         error=error
+
     )
 
 
+
 if __name__ == "__main__":
+
     app.run(debug=True)

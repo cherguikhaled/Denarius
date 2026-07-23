@@ -322,3 +322,44 @@ button:hover {
     color: #b8860b;
 
 }
+.swap-container {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin: 10px 0;
+
+}
+
+.swap-btn {
+
+    width: 55px;
+
+    height: 55px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background-color: #b8860b;
+
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+.swap-btn:hover {
+
+    background-color: #8b6508;
+
+    transform: rotate(180deg) scale(1.1);
+
+}

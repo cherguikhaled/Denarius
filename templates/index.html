@@ -50,6 +50,16 @@
 
         </div>
 
+        <div class="swap-container">
+
+            <button type="submit" name="action" value="swap" class="swap-btn">
+
+                ⇅
+
+            </button>
+
+        </div>
+
         <div class="form-group">
 
             <label>To:</label>
@@ -82,7 +92,9 @@
         </div>
 
         <button type="submit">
+
             Convert
+
         </button>
 
     </form>
@@ -104,7 +116,9 @@
         <h3>Exchange Rate</h3>
 
         <p>
+
             1 {{ from_currency }} = {{ rate }} {{ to_currency }}
+
         </p>
 
     </div>
@@ -119,19 +133,25 @@
 
         <p class="conversion">
 
-    <span class="amount">
-        {{ amount }} {{ from_currency }}
-    </span>
+            <span class="amount">
 
-    <span class="arrow">
-        ↓
-    </span>
+                {{ amount }} {{ from_currency }}
 
-    <span class="amount">
-        {{ "%.2f"|format(result) }} {{ to_currency }}
-    </span>
+            </span>
 
-</p>
+            <span class="arrow">
+
+                ↓
+
+            </span>
+
+            <span class="amount">
+
+                {{ "%.2f"|format(result) }} {{ to_currency }}
+
+            </span>
+
+        </p>
 
     </div>
 
