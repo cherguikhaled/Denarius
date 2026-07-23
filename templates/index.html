@@ -5,34 +5,31 @@
 
     <title>DENARIUS</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
-
     <div class="brand">
 
-    <div class="logo">
+        <div class="logo">
 
-    <img src="{{ url_for('static', filename='logo.png') }}" alt="Denarius Logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Denarius Logo">
 
-</div>
+        </div>
 
-    <h1>DENARIUS</h1>
+        <h1>DENARIUS</h1>
 
-    <h2>Global Currency Exchange</h2>
+        <h2>Global Currency Exchange</h2>
 
-</div>
-
+    </div>
 
     <form method="POST">
-
 
         <div class="form-group">
 
@@ -42,18 +39,16 @@
 
                 {% for currency in currencies %}
 
-                    <option value="{{ currency }}"
-                    {% if currency == from_currency %}selected{% endif %}>
-                        {{ currency }}
-                    </option>
+                <option value="{{ currency }}"
+                {% if currency == from_currency %}selected{% endif %}>
+                    {{ currency }}
+                </option>
 
                 {% endfor %}
 
             </select>
 
         </div>
-
-
 
         <div class="form-group">
 
@@ -63,10 +58,10 @@
 
                 {% for currency in currencies %}
 
-                    <option value="{{ currency }}"
-                    {% if currency == to_currency %}selected{% endif %}>
-                        {{ currency }}
-                    </option>
+                <option value="{{ currency }}"
+                {% if currency == to_currency %}selected{% endif %}>
+                    {{ currency }}
+                </option>
 
                 {% endfor %}
 
@@ -74,96 +69,75 @@
 
         </div>
 
-
-
         <div class="form-group">
 
             <label>Amount:</label>
 
             <input
-            type="number"
-            name="amount"
-            value="{{ amount if amount else 100 }}"
-            step="0.01">
+                type="number"
+                name="amount"
+                value="{{ amount if amount else 100 }}"
+                step="0.01">
 
         </div>
-
-
 
         <button type="submit">
             Convert
         </button>
 
-
-
     </form>
-
-
 
     {% if error %}
 
-        <div class="error">
+    <div class="error">
 
-            {{ error }}
+        {{ error }}
 
-        </div>
+    </div>
 
     {% endif %}
 
+    {% if rate %}
 
+    <div class="result-box">
+
+        <h3>Exchange Rate</h3>
+
+        <p>
+            1 {{ from_currency }} = {{ rate }} {{ to_currency }}
+        </p>
+
+    </div>
+
+    {% endif %}
 
     {% if result %}
 
-<div class="conversion-card">
+    <div class="result-box">
 
-    <h3>Conversion Result</h3>
+        <h3>Result</h3>
 
-    <div class="amount">
+        <p class="conversion">
 
-        {{ "%.2f"|format(amount) }}
-        {{ from_currency }}
+    <span class="amount">
+        {{ amount }} {{ from_currency }}
+    </span>
 
-    </div>
-
-
-    <div class="arrow">
-
+    <span class="arrow">
         ↓
+    </span>
+
+    <span class="amount">
+        {{ "%.2f"|format(result) }} {{ to_currency }}
+    </span>
+
+</p>
 
     </div>
 
-
-    <div class="final-result">
-
-        {{ "%.2f"|format(result) }}
-        {{ to_currency }}
-
-    </div>
-
-
-    <div class="rate-info">
-
-        Exchange Rate:
-
-        1 {{ from_currency }}
-
-        =
-
-        {{ rate }}
-
-        {{ to_currency }}
-
-    </div>
-
+    {% endif %}
 
 </div>
-
-{% endif %}
-
-
-
-</div>
-
 
 </body>
 
