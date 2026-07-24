@@ -160,44 +160,7 @@ def home():
                     })
 
                     history[:] = history[:10]
-                    # =====================================
-                    # Last 7 Days Chart
-                    # =====================================
-
-                    end_date = datetime.today().date()
-                    start_date = end_date - timedelta(days=6)
-
-                    chart_url = (
-                        f"https://api.currencybeacon.com/v1/historical"
-                        f"?api_key={CURRENCYBEACON_API_KEY}"
-                        f"&base={from_currency}"
-                        f"&date={end_date}"
-                    )
-
-                    chart_response = requests.get(chart_url, timeout=5)
-
-                    chart_json = chart_response.json()
-
-
-                    if "rates" in chart_json:
-
-                        for day, values in chart_json["rates"].items():
-
-                            if to_currency in values:
-
-                                chart_labels.append(day)
-
-                                chart_rates.append(values[to_currency])
-
-
-                    else:
-
-                         chart_labels = []
-                         chart_rates = []
-
-                else:
-
-                    error = "Unable to get exchange rate."
+                    
 
             except requests.exceptions.RequestException:
 
