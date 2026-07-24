@@ -18,16 +18,28 @@ def get_currency_flag(currency_code):
         # Manual country corrections
         special_cases = {
 
-            "USD": "US",
-            "DZD": "DZ",
-            "EUR": "EU",
-            "JPY": "JP",
-            "CAD": "CA",
-            "GBP": "GB",
-            "AUD": "AU",
-            "CHF": "CH"
+    "USD": "US",
+    "DZD": "DZ",
+    "EUR": "EU",
+    "JPY": "JP",
+    "CAD": "CA",
+    "GBP": "GB",
+    "AUD": "AU",
+    "CHF": "CH",
 
-        }
+    "INR": "IN",
+    "CNY": "CN",
+    "BRL": "BR",
+    "ZAR": "ZA",
+    "KRW": "KR",
+    "TRY": "TR",
+    "SAR": "SA",
+    "AED": "AE",
+    "EGP": "EG",
+    "MAD": "MA",
+    "TND": "TN"
+
+}
 
 
         if currency_code in special_cases:

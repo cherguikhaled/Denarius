@@ -8,9 +8,20 @@ tests = [
     "EUR",
     "JPY",
     "CAD",
+    "GBP",
+    "AUD",
+    "CHF",
     "INR",
     "CNY",
-    "BRL"
+    "BRL",
+    "ZAR",
+    "KRW",
+    "TRY",
+    "SAR",
+    "AED",
+    "EGP",
+    "MAD",
+    "TND"
 
 ]
 
