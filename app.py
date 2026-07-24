@@ -160,8 +160,37 @@ def home():
                     })
 
                     history[:] = history[:10]
-                    
+                     # =====================================
+                    # Last 7 Days Chart
+                    # CurrencyBeacon Timeseries
+                    # =====================================
 
+                    end_date = datetime.today().date()
+                    start_date = end_date - timedelta(days=6)
+
+                    chart_url = (
+                        f"https://api.currencybeacon.com/v1/timeseries"
+                        f"?api_key={CURRENCYBEACON_API_KEY}"
+                        f"&base={from_currency}"
+                        f"&symbols={to_currency}"
+                        f"&start_date={start_date}"
+                        f"&end_date={end_date}"
+                    )
+
+                    chart_response = requests.get(chart_url, timeout=5)
+                    chart_data = chart_response.json()
+                    if "response" in chart_data:
+
+                        chart_labels.clear()
+                        chart_rates.clear()
+
+                        for day, values in sorted(chart_data["response"].items()):
+
+                            if to_currency in values:
+
+                                chart_labels.append(day)
+
+                                chart_rates.append(values[to_currency])
             except requests.exceptions.RequestException:
 
                 error = "Connection error. Please try again later."
