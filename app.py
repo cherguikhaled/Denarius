@@ -1,48 +1,66 @@
 from flask import Flask, render_template, request
 import requests
+from datetime import datetime, timedelta
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+
+
+CURRENCYBEACON_API_KEY = os.getenv("CURRENCYBEACON_API_KEY")
 
 app = Flask(__name__)
 
+# ==========================================
+# Conversion History
+# ==========================================
+
+history = []
+
+# ==========================================
+# Supported Currencies
+# ==========================================
 
 currencies = {
 
     "USD": {
-        "name": "USD",
+        "name": "US Dollar",
         "flag": "flags/usa.png"
     },
 
     "EUR": {
-        "name": "EUR",
+        "name": "Euro",
         "flag": "flags/europe.png"
     },
 
     "DZD": {
-        "name": "DZD",
+        "name": "Algerian Dinar",
         "flag": "flags/algeria.png"
     },
 
     "GBP": {
-        "name": "GBP",
+        "name": "British Pound",
         "flag": "flags/uk.png"
     },
 
     "JPY": {
-        "name": "JPY",
+        "name": "Japanese Yen",
         "flag": "flags/japan.png"
     },
 
     "CAD": {
-        "name": "CAD",
+        "name": "Canadian Dollar",
         "flag": "flags/canada.png"
     },
 
     "AUD": {
-        "name": "AUD",
+        "name": "Australian Dollar",
         "flag": "flags/australia.png"
     },
 
     "CHF": {
-        "name": "CHF",
+        "name": "Swiss Franc",
         "flag": "flags/switzerland.png"
     }
 
@@ -54,11 +72,15 @@ def home():
 
     result = None
     rate = None
-    amount = None
-    from_currency = None
-    to_currency = None
+    amount = 100
+
+    from_currency = "USD"
+    to_currency = "EUR"
+
     error = None
 
+    chart_labels = []
+    chart_rates = []
 
     if request.method == "POST":
 
@@ -66,7 +88,6 @@ def home():
         to_currency = request.form["to_currency"]
 
         action = request.form.get("action")
-
 
         if action == "swap":
 
@@ -76,76 +97,117 @@ def home():
                 "index.html",
                 result=None,
                 rate=None,
-                amount=None,
+                amount=100,
                 from_currency=from_currency,
                 to_currency=to_currency,
                 currencies=currencies,
+                history=history,
+                chart_labels=[],
+                chart_rates=[],
+                last_update=datetime.now().strftime("%H:%M"),
                 error=None
             )
 
-
         try:
-
             amount = float(request.form["amount"])
-
 
         except ValueError:
 
             error = "Please enter a valid amount."
-            amount = None
+
+        if amount <= 0:
+
+            error = "Amount must be greater than zero."
+
+        elif from_currency == to_currency:
+
+            error = "Please choose two different currencies."
+
+        else:
+
+            try:
+
+                # =====================================
+                # Current Exchange Rate
+                # CurrencyBeacon API
+                # =====================================
+
+                url = (
+                    f"https://api.currencybeacon.com/v1/latest"
+                    f"?api_key={CURRENCYBEACON_API_KEY}"
+                    f"&base={from_currency}"
+                )
+
+                response = requests.get(url, timeout=5)
+
+                data = response.json()
+
+                if "rates" in data:
+
+                    rate = data["rates"][to_currency]
+
+                    
+
+                    result = amount * rate
+
+                    history.insert(0, {
+
+                        "amount": amount,
+                        "from": from_currency,
+                        "to": to_currency,
+                        "result": round(result, 2)
+
+                    })
+
+                    history[:] = history[:10]
+                    # =====================================
+                    # Last 7 Days Chart
+                    # =====================================
+
+                    end_date = datetime.today().date()
+                    start_date = end_date - timedelta(days=6)
+
+                    chart_url = (
+                        f"https://api.currencybeacon.com/v1/historical"
+                        f"?api_key={CURRENCYBEACON_API_KEY}"
+                        f"&base={from_currency}"
+                        f"&date={end_date}"
+                    )
+
+                    chart_response = requests.get(chart_url, timeout=5)
+
+                    chart_json = chart_response.json()
 
 
+                    if "rates" in chart_json:
 
-        if amount is not None:
+                        for day, values in chart_json["rates"].items():
 
+                            if to_currency in values:
 
-            if amount <= 0:
+                                chart_labels.append(day)
 
-                error = "Amount must be greater than zero."
-
-
-            elif from_currency == to_currency:
-
-                error = "Please choose two different currencies."
-
-
-            else:
-
-
-                url = f"https://api.exchangerate-api.com/v4/latest/{from_currency}"
-
-
-                try:
-
-                    response = requests.get(url, timeout=5)
-
-                    data = response.json()
-
-
-                    if "rates" in data:
-
-                        rate = data["rates"][to_currency]
-
-                        result = amount * rate
+                                chart_rates.append(values[to_currency])
 
 
                     else:
 
-                        error = "Unable to get exchange rate."
+                         chart_labels = []
+                         chart_rates = []
 
+                else:
 
+                    error = "Unable to get exchange rate."
 
-                except requests.exceptions.RequestException:
+            except requests.exceptions.RequestException:
 
-                    error = "Connection error. Please try again later."
+                error = "Connection error. Please try again later."
 
+            except KeyError:
 
+                error = "Currency not supported."
 
-                except KeyError:
-
-                    error = "Currency not supported."
-
-
+    last_update = datetime.now().strftime("%H:%M")
 
     return render_template(
 
@@ -163,10 +225,17 @@ def home():
 
         currencies=currencies,
 
+        history=history,
+
+        chart_labels=chart_labels,
+
+        chart_rates=chart_rates,
+
+        last_update=last_update,
+
         error=error
 
     )
-
 
 
 if __name__ == "__main__":

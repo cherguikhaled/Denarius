@@ -5,13 +5,18 @@
 
     <title>DENARIUS</title>
 
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
+
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+
 </head>
+
 
 
 <body>
@@ -20,49 +25,102 @@
 <div class="container">
 
 
+
+    <!-- ==========================
+         BRAND
+    =========================== -->
+
+
     <div class="brand">
+
 
         <div class="logo">
 
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="Denarius Logo">
+            <img 
+            src="{{ url_for('static', filename='logo.png') }}"
+            alt="Denarius Logo">
 
         </div>
 
-        <h1>DENARIUS</h1>
 
-        <h2>Global Currency Exchange</h2>
+
+        <h1>
+            DENARIUS
+        </h1>
+
+
+
+        <h2>
+            Global Currency Exchange
+        </h2>
+
+
+
+        <p class="tagline">
+
+            Fast • Accurate • Live Exchange Rates
+
+        </p>
+
+
 
     </div>
 
 
 
+
+
+    <!-- ==========================
+         FORM
+    =========================== -->
+
+
     <form method="POST">
+
 
 
         <div class="form-group">
 
-            <label>From:</label>
+
+            <label>
+                From:
+            </label>
+
 
 
             <select name="from_currency">
 
 
+
                 {% for code, currency in currencies.items() %}
 
-                <option
-                value="{{ code }}"
-                data-flag="{{ currency.flag }}"
-                {% if code == from_currency %}selected{% endif %}>
 
-                    {{ code }}
+
+                <option
+
+                value="{{ code }}"
+
+                data-flag="{{ currency.flag }}"
+
+                {% if code == from_currency %}selected{% endif %}
+
+                >
+
+
+                    {{ code }} - {{ currency.name }}
+
+
 
                 </option>
+
 
 
                 {% endfor %}
 
 
+
             </select>
+
 
 
         </div>
@@ -74,11 +132,23 @@
         <div class="swap-container">
 
 
-            <button type="submit" name="action" value="swap" class="swap-btn">
+
+            <button 
+
+            type="submit"
+
+            name="action"
+
+            value="swap"
+
+            class="swap-btn">
+
 
                 ⇅
 
+
             </button>
+
 
 
         </div>
@@ -90,31 +160,48 @@
         <div class="form-group">
 
 
-            <label>To:</label>
+
+            <label>
+
+                To:
+
+            </label>
+
 
 
             <select name="to_currency">
 
 
+
                 {% for code, currency in currencies.items() %}
 
 
+
                 <option
+
                 value="{{ code }}"
+
                 data-flag="{{ currency.flag }}"
-                {% if code == to_currency %}selected{% endif %}>
+
+                {% if code == to_currency %}selected{% endif %}
+
+                >
 
 
-                    {{ code }}
+                    {{ code }} - {{ currency.name }}
+
 
 
                 </option>
 
 
+
                 {% endfor %}
 
 
+
             </select>
+
 
 
         </div>
@@ -126,14 +213,25 @@
         <div class="form-group">
 
 
-            <label>Amount:</label>
+
+            <label>
+
+                Amount:
+
+            </label>
+
 
 
             <input
+
             type="number"
+
             name="amount"
+
             value="{{ amount if amount else 100 }}"
+
             step="0.01">
+
 
 
         </div>
@@ -151,97 +249,321 @@
 
 
     </form>
+    <!-- ==========================
+     ERROR MESSAGE
+========================== -->
+
+
+{% if error %}
+
+
+<div class="error">
+
+
+    {{ error }}
+
+
+</div>
+
+
+{% endif %}
 
 
 
 
 
-    {% if error %}
 
-    <div class="error">
 
-        {{ error }}
+<!-- ==========================
+     EXCHANGE RATE
+========================== -->
+
+
+{% if rate %}
+
+
+<div class="result-box">
+
+
+    <h3>
+        Exchange Rate
+    </h3>
+
+
+
+    <p>
+
+        1 {{ from_currency }} = {{ rate }} {{ to_currency }}
+
+    </p>
+
+
+
+</div>
+
+
+{% endif %}
+
+
+
+
+
+
+
+<!-- ==========================
+     CONVERSION RESULT
+========================== -->
+
+
+{% if result %}
+
+
+
+<div class="result-box">
+
+
+
+    <h3>
+        Conversion Result
+    </h3>
+
+
+
+
+
+    <div class="currency-result">
+
+
+
+
+
+        <div class="currency-card">
+
+
+
+            <img
+
+            src="/static/{{ currencies[from_currency].flag }}"
+
+            alt="{{ from_currency }}"
+
+            >
+
+
+
+
+
+            <h2>
+
+                {{ amount }}
+
+            </h2>
+
+
+
+
+
+            <p>
+
+                {{ currencies[from_currency].name }}
+
+            </p>
+
+
+
+        </div>
+
+
+
+
+
+
+
+        <div class="arrow">
+
+            →
+
+        </div>
+
+
+
+
+
+
+
+        <div class="currency-card">
+
+
+
+            <img
+
+            src="/static/{{ currencies[to_currency].flag }}"
+
+            alt="{{ to_currency }}"
+
+            >
+
+
+
+
+
+            <h2>
+
+                {{ "%.2f"|format(result) }}
+
+            </h2>
+
+
+
+
+
+            <p>
+
+                {{ currencies[to_currency].name }}
+
+            </p>
+
+
+
+        </div>
+
+
+
+
 
     </div>
 
-    {% endif %}
+
+
+
+
+</div>
+
+
+
+{% endif %}
 
 
 
 
 
-    {% if rate %}
-
-    <div class="result-box">
 
 
-        <h3>Exchange Rate</h3>
+<!-- ==========================
+     EXCHANGE RATE CHART
+========================== -->
+
+
+<div class="result-box">
+
+
+    <h3>
+
+        Exchange Rate Trend
+
+    </h3>
+
+
+
+    <canvas id="currencyChart"></canvas>
+
+
+
+</div>
+<!-- ==========================
+     MARKET STATS
+========================== -->
+
+
+<div class="market-stats">
+
+
+
+    <div class="stat-card">
+
+
+        <h4>
+            🌍 Base Currency
+        </h4>
+
 
 
         <p>
 
-            1 {{ from_currency }} = {{ rate }} {{ to_currency }}
+            {{ from_currency if from_currency else "USD" }}
 
         </p>
+
 
 
     </div>
 
 
-    {% endif %}
 
 
 
 
 
-    {% if result %}
+    <div class="stat-card">
 
 
-    <div class="result-box">
-
-
-        <h3>Conversion Result</h3>
-
-
-
-        <div class="currency-result">
+        <h4>
+            💱 Current Rate
+        </h4>
 
 
 
-            <div class="currency-card">
-
-
-                <img 
-                src="/static/{{ currencies[from_currency].flag }}"
-                alt="{{ from_currency }}">
+        <p>
 
 
 
-                <h2>
+            {% if rate %}
 
-                    {{ amount }}
-
-                </h2>
+                {{ rate }}
 
 
+            {% else %}
 
-                <p>
+                --
 
-                    {{ from_currency }}
 
-                </p>
+            {% endif %}
 
 
 
-            </div>
+        </p>
+
+
+
+    </div>
 
 
 
 
 
-            <div class="arrow">
 
-    →
+
+    <div class="stat-card">
+
+
+        <h4>
+            🕒 Last Update
+        </h4>
+
+
+
+        <p>
+
+            {{ last_update }}
+
+        </p>
+
+
+
+    </div>
+
+
+
 
 </div>
 
@@ -249,32 +571,91 @@
 
 
 
-            <div class="currency-card">
-
-
-                <img 
-                src="/static/{{ currencies[to_currency].flag }}"
-                alt="{{ to_currency }}">
 
 
 
-                <h2>
-
-                    {{ "%.2f"|format(result) }}
-
-                </h2>
+<!-- ==========================
+     CONVERSION HISTORY
+========================== -->
 
 
-
-                <p>
-
-                    {{ to_currency }}
-
-                </p>
+{% if history %}
 
 
 
-            </div>
+<div class="result-box">
+
+
+
+    <h3>
+        Recent Conversions
+    </h3>
+
+
+
+
+
+    <div class="history-list">
+
+
+
+
+
+        {% for item in history %}
+
+
+
+
+
+        <div class="history-item">
+
+
+
+
+
+            <span>
+
+
+                {{ item.amount }}
+
+                {{ item.from }}
+
+
+
+            </span>
+
+
+
+
+
+
+
+            <span class="history-arrow">
+
+
+                →
+
+
+            </span>
+
+
+
+
+
+
+
+            <span>
+
+
+
+                {{ item.result }}
+
+                {{ item.to }}
+
+
+
+            </span>
+
 
 
 
@@ -283,10 +664,17 @@
 
 
 
+
+
+        {% endfor %}
+
+
+
+
+
     </div>
 
 
-    {% endif %}
 
 
 
@@ -295,12 +683,23 @@
 
 
 
+{% endif %}
 
 
+
+
+
+
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 
 
 
@@ -330,8 +729,10 @@ function formatCurrency(currency) {
         <span>
 
 
-            <img 
+            <img
+
             src="/static/${flag}"
+
             style="
             width:25px;
             height:18px;
@@ -342,11 +743,16 @@ function formatCurrency(currency) {
             ">
 
 
+
+            <strong>
+
             ${currency.text}
+
+            </strong>
+
 
 
         </span>
-
 
     `;
 
@@ -361,20 +767,21 @@ function formatCurrency(currency) {
 $(document).ready(function(){
 
 
+
     $('select').select2({
+
 
 
         templateResult: formatCurrency,
 
-
         templateSelection: formatCurrency,
 
-
-        escapeMarkup: function(markup){
+        escapeMarkup:function(markup){
 
             return markup;
 
         }
+
 
 
     });
@@ -386,6 +793,153 @@ $(document).ready(function(){
 
 
 </script>
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+const labels = {{ chart_labels | tojson }};
+
+const data = {{ chart_rates | tojson }};
+
+
+
+
+
+if(labels.length > 0){
+
+
+
+    const ctx = document
+
+    .getElementById("currencyChart")
+
+    .getContext("2d");
+
+
+
+
+
+    new Chart(ctx,{
+
+
+
+        type:"line",
+
+
+
+
+        data:{
+
+
+
+            labels:labels,
+
+
+
+            datasets:[{
+
+
+                label:"Exchange Rate",
+
+
+                data:data,
+
+
+                borderWidth:3,
+
+
+                tension:0.35,
+
+
+                fill:false,
+
+
+                pointRadius:4,
+
+
+                borderColor:"#16a34a",
+
+
+                backgroundColor:"#16a34a"
+
+
+
+            }]
+
+
+
+        },
+
+
+
+
+
+        options:{
+
+
+
+            responsive:true,
+
+
+
+            plugins:{
+
+
+                legend:{
+
+
+                    display:false
+
+
+                }
+
+
+            },
+
+
+
+            scales:{
+
+
+
+                y:{
+
+
+                    beginAtZero:false
+
+
+                }
+
+
+
+            }
+
+
+
+        }
+
+
+
+    });
+
+
+
+}
+
+
+
+</script>
+
+
 
 
 
