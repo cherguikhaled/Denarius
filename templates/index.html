@@ -905,17 +905,35 @@ if(labels.length > 0){
 
 
 
-            plugins:{
+            plugins: {
 
+                legend: {
 
-                legend:{
+                    display: false
 
+                },
 
-                    display:false
+                tooltip: {
 
+                    enabled: true,
+
+                    displayColors: false,
+
+                    animation: {
+                        duration: 0
+                    },
+
+                    callbacks: {
+
+                         label: function(context) {
+
+                            return "Rate: " + context.parsed.y.toFixed(6);
+
+                        }
+
+                    }
 
                 }
-
 
             },
 
