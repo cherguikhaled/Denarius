@@ -3,6 +3,9 @@ import requests
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import os
+import pycountry
+from pycountry_convert import country_alpha3_to_country_alpha2
+import json
 
 
 load_dotenv()
@@ -11,6 +14,35 @@ load_dotenv()
 CURRENCYBEACON_API_KEY = os.getenv("CURRENCYBEACON_API_KEY")
 
 app = Flask(__name__)
+# ==========================================
+# Flag Generator
+# ==========================================
+
+def get_currency_flag(currency_code):
+
+    currency_country_map = {
+
+        "USD": "US",
+        "DZD": "DZ",
+        "EUR": "EU",
+        "JPY": "JP",
+        "CAD": "CA",
+        "GBP": "GB",
+        "AUD": "AU",
+        "CHF": "CH"
+
+    }
+
+
+    country_code = currency_country_map.get(currency_code)
+
+
+    if country_code:
+
+        return f"flags/{country_code}.png"
+
+
+    return "flags/default.png"
 
 # ==========================================
 # Conversion History
@@ -22,49 +54,94 @@ history = []
 # Supported Currencies
 # ==========================================
 
-currencies = {
+# ==========================================
+# Load All Currencies
+# ==========================================
 
-    "USD": {
-        "name": "US Dollar",
-        "flag": "flags/usa.png"
-    },
+import json
 
-    "EUR": {
-        "name": "Euro",
-        "flag": "flags/europe.png"
-    },
 
-    "DZD": {
-        "name": "Algerian Dinar",
-        "flag": "flags/algeria.png"
-    },
+with open("currencies.json", "r", encoding="utf-8") as file:
 
-    "GBP": {
-        "name": "British Pound",
-        "flag": "flags/uk.png"
-    },
+    currency_data = json.load(file)
 
-    "JPY": {
-        "name": "Japanese Yen",
-        "flag": "flags/japan.png"
-    },
 
-    "CAD": {
-        "name": "Canadian Dollar",
-        "flag": "flags/canada.png"
-    },
 
-    "AUD": {
-        "name": "Australian Dollar",
-        "flag": "flags/australia.png"
-    },
+currencies = {}
 
-    "CHF": {
-        "name": "Swiss Franc",
-        "flag": "flags/switzerland.png"
+
+for item in currency_data:
+
+    code = item["short_code"]
+
+    currencies[code] = {
+
+        "name": item["name"],
+
+        "flag": get_currency_flag(code)
+
     }
 
+
+
+print(f"✅ Loaded {len(currencies)} currencies")
+print(currencies["USD"])
+print(currencies["DZD"])
+print(currencies["INR"])
+# ==========================================
+# Load Currencies From JSON
+# ==========================================
+
+try:
+
+    with open("currencies.json", "r", encoding="utf-8") as file:
+
+        currency_data = json.load(file)
+
+
+    currencies = {}
+    flag_map = {
+
+    "USD": "flags/usa.png",
+
+    "EUR": "flags/europe.png",
+
+    "DZD": "flags/algeria.png",
+
+    "GBP": "flags/uk.png",
+
+    "JPY": "flags/japan.png",
+
+    "CAD": "flags/canada.png",
+
+    "AUD": "flags/australia.png",
+
+    "CHF": "flags/switzerland.png"
+
 }
+
+
+    for currency in currency_data:
+        for currency in currency_data:
+
+            code = currency["short_code"]
+
+            currencies[code] = {
+
+                "name": currency["name"],
+
+                "flag": flag_map.get(code, "flags/default.png")
+
+            }
+
+
+    print(f"✅ Loaded {len(currencies)} currencies")
+
+    
+except Exception as e:
+
+    print("❌ Failed to load currencies.json")
+    print(e)
 
 
 @app.route("/", methods=["GET", "POST"])

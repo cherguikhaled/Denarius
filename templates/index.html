@@ -100,7 +100,7 @@
 
                 value="{{ code }}"
 
-                data-flag="{{ currency.flag }}"
+                data-flag="{{ currency.flag if currency.flag else 'flags/default.png' }}"
 
                 {% if code == from_currency %}selected{% endif %}
 
