@@ -240,9 +240,11 @@
 
 
 
-        <button type="submit">
+        <button
+              type="submit"
+              id="convert-btn">
 
-            Convert
+              Convert
 
         </button>
 
@@ -940,7 +942,19 @@ if(labels.length > 0){
 </script>
 
 
+<script>
 
+document.querySelector("form").addEventListener("submit", function () {
+
+    const button = document.getElementById("convert-btn");
+
+    button.disabled = true;
+
+    button.innerHTML = "⏳ Converting...";
+
+});
+
+</script>
 
 
 
