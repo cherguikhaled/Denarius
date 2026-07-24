@@ -819,3 +819,41 @@ button:hover{
 
 
 }
+/* ===========================
+   MOBILE RESPONSIVE
+=========================== */
+
+@media (max-width: 600px){
+
+
+    .container{
+
+        padding:15px;
+
+    }
+
+
+    .currency-result{
+
+        flex-direction:column;
+
+        gap:20px;
+
+    }
+
+
+    .arrow{
+
+        transform:rotate(90deg);
+
+    }
+
+
+    .currency-card{
+
+        width:180px;
+
+    }
+
+
+}
