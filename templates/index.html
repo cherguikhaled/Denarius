@@ -808,7 +808,19 @@ $(document).ready(function(){
 <script>
 
 
-const labels = {{ chart_labels | tojson }};
+const labels = {{ chart_labels | tojson }}.map(date => {
+
+    const d = new Date(date);
+
+    return d.toLocaleDateString("en-GB", {
+
+        day: "2-digit",
+
+        month: "short"
+
+    });
+
+});
 
 const data = {{ chart_rates | tojson }};
 
