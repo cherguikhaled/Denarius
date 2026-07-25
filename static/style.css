@@ -376,7 +376,7 @@ button{
         box-shadow .25s ease;
 
     box-shadow:
-        0 8px 20px rgba(37,99,235,.22);
+    0 2px 8px rgba(37,99,235,.10);
 
 }
 
@@ -389,9 +389,9 @@ button:hover{
     );
 
     transform:translateY(-2px);
-
+ 
     box-shadow:
-        0 10px 24px rgba(37,99,235,.28);
+    0 4px 10px rgba(37,99,235,.16);
 
 }
 
@@ -429,7 +429,7 @@ button:active{
 
 
 
-..result-box h3{
+.result-box h3{
 
     margin:0 0 18px;
 
@@ -868,16 +868,26 @@ button:active{
 ========================================== */
 
 .rate-value{
-    font-size:28px;
-    font-weight:700;
-    margin-top:15px;
-    margin-bottom:20px;
+
+    font-size:22px;
+
+    font-weight:500;
+
+    margin-top:12px;
+
+    margin-bottom:18px;
+
+    color:#444;
+
 }
 
 .rate-value strong{
-    color:#2563eb;
-}
 
+    color:#2563eb;
+
+    font-weight:700;
+
+}
 .trend-box{
     margin-top:20px;
     padding-top:15px;
