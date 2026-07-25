@@ -307,17 +307,19 @@
 
         {% if mover.change > 0 %}
 
-            <span class="mover-up">
-                ▲ +{{ "%.2f"|format(mover.change) }}%
+            <span class="mover-change">
+                <span class="mover-arrow mover-up">▲</span>
+                <span class="mover-value">+{{ "%.2f"|format(mover.change) }}%</span>
             </span>
 
         {% else %}
 
-            <span class="mover-down">
-                ▼ {{ "%.2f"|format(mover.change) }}%
+            <span class="mover-change">
+                <span class="mover-arrow mover-down">▼</span>
+                <span class="mover-value">{{ "%.2f"|format(mover.change) }}%</span>
             </span>
 
-        {% endif %}
+        {% endif %}   
 
     </div>
 
