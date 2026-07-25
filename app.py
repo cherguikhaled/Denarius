@@ -6,6 +6,11 @@ import os
 import pycountry
 from pycountry_convert import country_alpha3_to_country_alpha2
 import json
+from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill, Alignment
+from openpyxl.utils import get_column_letter
+from io import BytesIO
+from flask import send_file
 
 
 load_dotenv()
@@ -49,6 +54,7 @@ def get_currency_flag(currency_code):
 # ==========================================
 
 history = []
+last_conversion = {}
 # ==========================================
 # Top Movers (Temporary Data)
 # ==========================================
@@ -158,6 +164,8 @@ except Exception as e:
 @app.route("/", methods=["GET", "POST"])
 def home():
 
+    global last_conversion
+
     result = None
     rate = None
     amount = 100
@@ -243,12 +251,32 @@ def home():
 
                     history.insert(0, {
 
+                        "datetime": datetime.now().strftime("%Y-%m-%d %H:%M"),
+
                         "amount": amount,
+
                         "from": from_currency,
+
                         "to": to_currency,
+
+                        "rate": round(rate, 6),
+
                         "result": round(result, 2)
 
                     })
+                    last_conversion = {
+
+                        "from": from_currency,
+
+                        "to": to_currency,
+
+                        "rate": round(rate, 6),
+
+                        "trend": trend,
+
+                        "trend_percent": trend_percent
+
+                    }
 
                     history[:] = history[:10]
                      # =====================================
@@ -341,7 +369,159 @@ def home():
         top_movers=top_movers
 
     )
+import csv
+from flask import Response
 
+
+@app.route("/export-history")
+def export_history():
+
+    workbook = Workbook()
+    sheet = workbook.active
+    sheet.title = "Conversion History"
+
+    # ==========================
+    # Title
+    # ==========================
+
+    sheet.merge_cells("A1:F1")
+    sheet["A1"] = "DENARIUS"
+    sheet["A1"].font = Font(size=18, bold=True)
+    sheet["A1"].alignment = Alignment(horizontal="center")
+
+    sheet.merge_cells("A2:F2")
+    sheet["A2"] = "Global Currency Exchange"
+    sheet["A2"].alignment = Alignment(horizontal="center")
+
+    sheet.merge_cells("A3:F3")
+    sheet["A3"] = "Conversion History Report"
+    sheet["A3"].font = Font(bold=True)
+    sheet["A3"].alignment = Alignment(horizontal="center")
+
+    sheet["A5"] = "Generated Date:"
+    sheet["B5"] = datetime.now().strftime("%Y-%m-%d")
+
+    sheet["D5"] = "Generated Time:"
+    sheet["E5"] = datetime.now().strftime("%H:%M")
+
+    # ==========================
+    # Headers
+    # ==========================
+    sheet["A6"] = "Current Pair:"
+
+    if last_conversion:
+        sheet["B6"] = f'{last_conversion["from"]} → {last_conversion["to"]}'
+    else:
+        sheet["B6"] = "-"
+
+
+    sheet["D6"] = "24H Change:"
+
+    if last_conversion:
+
+        if last_conversion["trend"] == "up":
+            sheet["E6"] = f'▲ +{last_conversion["trend_percent"]}%'
+
+        elif last_conversion["trend"] == "down":
+            sheet["E6"] = f'▼ -{last_conversion["trend_percent"]}%'
+
+        else:
+            sheet["E6"] = "No Change"
+
+    else:
+        sheet["E6"] = "-"
+
+
+    sheet["A7"] = "Current Rate:"
+
+    if last_conversion:
+        sheet["B7"] = (
+            f'1 {last_conversion["from"]} = '
+            f'{last_conversion["rate"]} '
+            f'{last_conversion["to"]}'
+    )
+    else:
+        sheet["B7"] = "-"
+
+
+    sheet["D7"] = "Total Conversions:"
+    sheet["E7"] = len(history)
+    headers = [
+        "Date & Time",
+        "From",
+        "To",
+        "Amount",
+        "Rate",
+        "Result"
+    ]
+
+    header_fill = PatternFill(
+        start_color="2563EB",
+        end_color="2563EB",
+        fill_type="solid"
+    )
+
+    row = 7
+
+    for column, header in enumerate(headers, start=1):
+
+        cell = sheet.cell(row=row, column=column)
+
+        cell.value = header
+        cell.font = Font(bold=True, color="FFFFFF")
+        cell.fill = header_fill
+        cell.alignment = Alignment(horizontal="center")
+
+    # ==========================
+    # History
+    # ==========================
+
+    row = 8
+
+    for item in history:
+
+        sheet.cell(row=row, column=1).value = item["datetime"]
+        sheet.cell(row=row, column=2).value = item["from"]
+        sheet.cell(row=row, column=3).value = item["to"]
+        sheet.cell(row=row, column=4).value = item["amount"]
+        sheet.cell(row=row, column=5).value = item["rate"]
+        sheet.cell(row=row, column=6).value = item["result"]
+
+        row += 1
+
+    # ==========================
+    # Auto Width
+    # ==========================
+
+    for column in sheet.columns:
+
+        length = 0
+        letter = get_column_letter(column[0].column)
+
+        for cell in column:
+
+            try:
+                if len(str(cell.value)) > length:
+                    length = len(str(cell.value))
+            except:
+                pass
+
+        sheet.column_dimensions[letter].width = length + 4
+
+    # ==========================
+    # Save
+    # ==========================
+
+    file = BytesIO()
+    workbook.save(file)
+    file.seek(0)
+
+    return send_file(
+        file,
+        as_attachment=True,
+        download_name="Denarius_History.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
 
 if __name__ == "__main__":
 
