@@ -287,19 +287,6 @@
 <div class="result-box">
 
 
-    <h3>
-        Exchange Rate
-    </h3>
-
-
-
-    <p>
-
-        1 {{ from_currency }} = {{ rate }} {{ to_currency }}
-
-    </p>
-
-
 
 </div>
 
@@ -319,132 +306,45 @@
 
 {% if result %}
 
-
-
 <div class="result-box">
 
+    <h3>Current Exchange Rate</h3>
 
+    <div class="rate-value">
+        1 {{ from_currency }} =
+        <strong>{{ "%.5f"|format(rate) }}</strong>
+        {{ to_currency }}
+    </div>
 
-    <h3>
-        Conversion Result
-    </h3>
+    {% if trend %}
 
+    <div class="trend-box">
 
-
-
-
-    <div class="currency-result">
-
-
-
-
-
-        <div class="currency-card">
-
-
-
-            <img
-
-            src="/static/{{ currencies[from_currency].flag }}"
-
-            alt="{{ from_currency }}"
-
-            >
-
-
-
-
-
-            <h2>
-
-                {{ amount }}
-
-            </h2>
-
-
-
-
-
-            <p>
-
-                {{ currencies[from_currency].name }}
-
-            </p>
-
-
-
+        <div class="trend-title">
+            24H Change
         </div>
 
+        {% if trend == "up" %}
 
+            <div class="trend-up">
+                ▲ +{{ trend_percent }}%
+            </div>
 
+        {% else %}
 
+            <div class="trend-down">
+                ▼ {{ trend_percent }}%
+            </div>
 
-
-
-        <div class="arrow">
-
-            →
-
-        </div>
-
-
-
-
-
-
-
-        <div class="currency-card">
-
-
-
-            <img
-
-            src="/static/{{ currencies[to_currency].flag }}"
-
-            alt="{{ to_currency }}"
-
-            >
-
-
-
-
-
-            <h2>
-
-                {{ "%.2f"|format(result) }}
-
-            </h2>
-
-
-
-
-
-            <p>
-
-                {{ currencies[to_currency].name }}
-
-            </p>
-
-
-
-        </div>
-
-
-
-
+        {% endif %}
 
     </div>
 
-
-
-
+    {% endif %}
 
 </div>
 
-
-
 {% endif %}
-
 
 
 

@@ -158,6 +158,8 @@ def home():
 
     chart_labels = []
     chart_rates = []
+    trend = None
+    trend_percent = None
 
     if request.method == "POST":
 
@@ -268,6 +270,22 @@ def home():
                                 chart_labels.append(day)
 
                                 chart_rates.append(values[to_currency])
+                                # =====================================
+                                # Price Trend (Yesterday vs Today)
+                                # =====================================
+
+                                if len(chart_rates) >= 2:
+
+                                    yesterday = chart_rates[-2]
+                                    today = chart_rates[-1]
+
+                                    trend = "up" if today > yesterday else "down"
+
+                                    trend_percent = round(((today - yesterday) / yesterday) * 100, 2)
+                                    print("Yesterday:", yesterday)
+                                    print("Today:", today)
+                                    print("Trend:", trend)
+                                    print("Percent:", trend_percent)
             except requests.exceptions.RequestException:
 
                 error = "Connection error. Please try again later."
@@ -299,6 +317,10 @@ def home():
         chart_labels=chart_labels,
 
         chart_rates=chart_rates,
+
+        trend=trend,
+
+        trend_percent=trend_percent,
 
         last_update=last_update,
 
