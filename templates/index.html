@@ -293,6 +293,38 @@
 
 {% endif %}
 
+<div class="result-box">
+
+    <h3>Top Movers Today</h3>
+
+    {% for mover in top_movers %}
+
+    <div class="mover-row">
+
+        <span class="mover-code">
+            {{ mover.code }}
+        </span>
+
+        {% if mover.change > 0 %}
+
+            <span class="mover-up">
+                ▲ +{{ "%.2f"|format(mover.change) }}%
+            </span>
+
+        {% else %}
+
+            <span class="mover-down">
+                ▼ {{ "%.2f"|format(mover.change) }}%
+            </span>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
 
 
 

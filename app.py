@@ -49,7 +49,18 @@ def get_currency_flag(currency_code):
 # ==========================================
 
 history = []
+# ==========================================
+# Top Movers (Temporary Data)
+# ==========================================
 
+top_movers = [
+
+    {"code": "JPY", "change": 1.82},
+    {"code": "CAD", "change": 0.91},
+    {"code": "GBP", "change": -1.16},
+    {"code": "TRY", "change": -0.84}
+
+]
 # ==========================================
 # Supported Currencies
 # ==========================================
@@ -184,7 +195,8 @@ def home():
                 chart_labels=[],
                 chart_rates=[],
                 last_update=datetime.now().strftime("%H:%M"),
-                error=None
+                error=None,
+                top_movers=top_movers,
             )
 
         try:
@@ -324,7 +336,9 @@ def home():
 
         last_update=last_update,
 
-        error=error
+        error=error,
+
+        top_movers=top_movers
 
     )
 

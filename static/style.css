@@ -897,3 +897,35 @@ button:hover{
     font-weight:700;
     color:#dc2626;
 }
+/* ==========================================
+   Top Movers
+========================================== */
+
+.mover-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px solid #ececec;
+}
+
+.mover-row:last-child{
+    border-bottom:none;
+}
+
+.mover-code{
+    font-size:18px;
+    font-weight:600;
+}
+
+.mover-up{
+    color:#16a34a;
+    font-weight:700;
+    font-size:18px;
+}
+
+.mover-down{
+    color:#dc2626;
+    font-weight:700;
+    font-size:18px;
+}
