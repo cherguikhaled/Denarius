@@ -25,12 +25,9 @@ body{
 
     font-family:'Poppins', Arial, sans-serif;
 
-    background:
-    linear-gradient(
-        135deg,
-        #f7f3e8,
-        #ececec
-    );
+    background:#F8FAFC;
+
+    color:#1E293B;
 
 }
 
@@ -50,12 +47,14 @@ body{
 
     margin:40px auto;
 
-    background:white;
+    background:#FFFFFF;
 
-    border-radius:25px;
+    border:1px solid #E2E8F0;
+
+    border-radius:20px;
 
     box-shadow:
-    0 20px 45px rgba(0,0,0,.15);
+    0 8px 24px rgba(15,23,42,.06);
 
 }
 
@@ -94,13 +93,13 @@ h1{
 
     margin:0;
 
-    color:#b8860b;
+    color:#1E293B;
 
-    font-size:42px;
-
-    letter-spacing:6px;
+    font-size:34px;
 
     font-weight:700;
+
+    letter-spacing:1px;
 
 }
 
@@ -110,11 +109,11 @@ h2{
 
     margin-top:10px;
 
-    color:#555;
+    color:#1E293B;
 
-    font-size:18px;
+    font-size:28px;
 
-    font-weight:400;
+    font-weight:600;
 
 }
 
@@ -156,9 +155,13 @@ h2{
 
     text-align:center;
 
-    margin-top:0;
+    margin:0;
 
-    color:#333;
+    color:#1E293B;
+
+    font-size:20px;
+
+    font-weight:600;
 
 }
 
@@ -249,7 +252,7 @@ h2{
 
 .form-group{
 
-    margin-bottom:20px;
+    margin-bottom:24px;
 
 }
 
@@ -343,7 +346,6 @@ input:focus{
    MAIN BUTTON
 =========================== */
 
-
 button{
 
     width:100%;
@@ -352,62 +354,53 @@ button{
 
     border:none;
 
-    border-radius:12px;
+    border-radius:14px;
 
     cursor:pointer;
 
-    color:white;
+    font-size:16px;
 
-    font-size:17px;
+    font-weight:600;
 
-    font-weight:700;
+    color:#FFFFFF;
 
-
-    background:
-    linear-gradient(
+    background:linear-gradient(
         135deg,
-        #d4a017,
-        #b8860b
+        #3B82F6,
+        #2563EB
     );
 
+    transition:
+        background .25s ease,
+        transform .20s ease,
+        box-shadow .25s ease;
 
-    transition:.25s;
+    box-shadow:
+        0 8px 20px rgba(37,99,235,.22);
 
 }
 
 button:hover{
 
-    transform:translateY(-2px);
-
-    box-shadow:
-    0 8px 18px rgba(184,134,11,0.35);
-
-}
-
-button:hover{
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
 
     transform:translateY(-2px);
 
     box-shadow:
-    0 8px 18px rgba(184,134,11,0.35);
+        0 10px 24px rgba(37,99,235,.28);
 
 }
-
 
 button:active{
 
-    transform:translateY(1px);
+    transform:translateY(0);
 
 }
 
-button:hover{
-
-    transform:scale(1.03);
-
-    box-shadow:
-    0 10px 25px rgba(184,134,11,.30);
-
-}
 /* ===========================
    RESULTS
 =========================== */
@@ -417,31 +410,36 @@ button:hover{
 
     width:100%;
 
-    margin-top:25px;
+    margin-top:24px;
 
-    padding:20px;
+    padding:24px;
 
-    background:#fafafa;
+    background:#FFFFFF;
 
-    border-radius:15px;
+    border:1px solid #E2E8F0;
 
-    border:1px solid #ececec;
+    border-radius:18px;
 
     text-align:center;
 
-}
-
-
-
-.result-box h3{
-
-    margin-top:0;
-
-    color:#333;
+    box-shadow:
+    0 4px 12px rgba(15,23,42,.04);
 
 }
 
 
+
+..result-box h3{
+
+    margin:0 0 18px;
+
+    color:#1E293B;
+
+    font-size:20px;
+
+    font-weight:600;
+
+}
 
 
 
@@ -458,9 +456,11 @@ button:hover{
 
     align-items:center;
 
-    gap:30px;
+    gap:24px;
 
-    margin-top:25px;
+    margin-top:24px;
+
+    flex-wrap:wrap;
 
 }
 
@@ -515,9 +515,9 @@ button:hover{
 
     margin:0;
 
-    color:#222;
+    color:#0F172A;
 
-    font-size:26px;
+    font-size:30px;
 
     font-weight:700;
 
@@ -661,12 +661,17 @@ button:hover{
 
     margin:0 0 10px;
 
-    color:#b8860b;
+    color:#64748B;
 
-    font-size:14px;
+    font-size:13px;
+
+    font-weight:600;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
 
 }
-
 
 
 .stat-card p{
@@ -683,8 +688,6 @@ button:hover{
 
 
 
-
-
 /* ===========================
    HISTORY
 =========================== */
@@ -696,9 +699,9 @@ button:hover{
 
     flex-direction:column;
 
-    gap:10px;
+    gap:14px;
 
-    margin-top:15px;
+    margin-top:20px;
 
 }
 
@@ -712,13 +715,16 @@ button:hover{
 
     align-items:center;
 
-    padding:12px 15px;
+    padding:16px 18px;
 
-    background:white;
+    background:#FFFFFF;
 
-    border-radius:10px;
+    border:1px solid #E2E8F0;
 
-    border:1px solid #e5e5e5;
+    border-radius:14px;
+
+    box-shadow:
+        0 3px 8px rgba(15,23,42,.03);
 
 }
 
@@ -728,7 +734,7 @@ button:hover{
 
     font-weight:600;
 
-    color:#333;
+    color:#1E293B;
 
 }
 
@@ -736,9 +742,9 @@ button:hover{
 
 .history-arrow{
 
-    color:#b8860b !important;
+    color:#64748B !important;
 
-    font-size:20px;
+    font-size:18px;
 
 }
 
@@ -945,28 +951,59 @@ button:hover{
 
 }
 
+/* ===========================
+   EXPORT BUTTON
+=========================== */
+
 .export-btn{
 
-    background:#2563eb;
+    display:inline-block;
 
-    color:white;
+    background:linear-gradient(
+        135deg,
+        #3B82F6,
+        #2563EB
+    );
+
+    color:#FFFFFF;
 
     text-decoration:none;
 
-    padding:8px 16px;
+    padding:10px 18px;
 
-    border-radius:8px;
+    border-radius:12px;
 
     font-size:14px;
 
     font-weight:600;
 
-    transition:.3s;
+    transition:
+        background .25s ease,
+        transform .20s ease,
+        box-shadow .25s ease;
+
+    box-shadow:
+        0 6px 16px rgba(37,99,235,.20);
 
 }
 
 .export-btn:hover{
 
-    background:#1d4ed8;
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,.26);
 
 }
+
+.export-btn:active{
+
+    transform:translateY(0);
+
+} 
